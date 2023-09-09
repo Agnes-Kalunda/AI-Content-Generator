@@ -23,6 +23,8 @@ def register(request):
         if not password1 == password2:
             messages.error(request,'Passwords do not match')
        
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "A user with the email address : {} already exists, please use a different email".format(email))
 
         return redirect('register')
     return render(request, 'authorization/register.html', {})
