@@ -23,7 +23,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="./static/authorization/img/favicon/favicon.ico" />
+   
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,12 +70,20 @@
                   <span class="app-brand-logo demo">
             
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">AggieAI</span>
+                  <!-- <span class="app-brand-text demo text-body fw-bolder">AggieAI</span> -->
                 </a>
               </div>
               <!-- /Logo -->
               
+     
 
+              {% for message in messages %}
+              <div class="alert alert-{{ messaeg.tags }} mb-4" role="alert">
+               <strong>{{message}}</strong>
+
+               </div>
+
+               {% endfor %}
               {% block body %}
 
               {% endblock %}
