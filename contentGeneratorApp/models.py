@@ -10,7 +10,7 @@ import os
 
 # Create your models here.
 class Profile(models.Model):
-    user = models.OneToOneField('User', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     addressLine1= models.CharField(null=True, blank=True, max_length=200)
     addressLine2=models.CharField(null=True, blank=True, max_length=200)
     city=models.CharField(null=True, blank=True, max_length=200)
