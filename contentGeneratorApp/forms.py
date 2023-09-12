@@ -78,3 +78,16 @@ class ProfileForm(forms.ModelForm):
         user.save()
         profile= super(ProfileForm, self).save(*args, **kwargs)
         return profile
+    
+
+class ProfileImageForm(forms.ModelForm):
+    profileImage= forms.ImageField(
+                    required=False,
+                    label='upload image',
+                    widget=forms.FileInput(attrs={'class': 'form-control'})
+    )
+
+
+    class Meta:
+        model = Profile
+        fields=['profileImage']
