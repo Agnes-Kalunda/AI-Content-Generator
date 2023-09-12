@@ -46,3 +46,11 @@ class Profile(models.Model):
         self.slug = slugify('{}{}{}'.format(self.user.first_name, self.user.last_name, self.user.email))
         self.last_updated = timezone.localtime(timezone.now())
         super(contact, self).save(*args, **kwargs)
+
+
+
+class Blog(models.Model):
+    title = models.CharField(null=True, max_length=300,)
+    keywords = models.CharField(null=True, max_length=300,)
+    wordCount = models.CharField(null=True, max_length=300,)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
