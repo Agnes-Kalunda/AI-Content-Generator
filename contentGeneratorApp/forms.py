@@ -43,7 +43,7 @@ class ProfileForm(forms.ModelForm):
 
     postalCode=forms.CharField(
         required=True,
-        label='Postal Code',
+        label='postalCode',
         widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Enter Postal Code'}),)
 
 
@@ -69,7 +69,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields=['addressLine1', 'addressLine2', 'city', 'province', 'country', 'postal code']
+        fields=['addressLine1', 'addressLine2', 'city', 'province', 'country', 'postalCode']
 
     def save(self, *args, **kwargs):
         user = self.instance.user

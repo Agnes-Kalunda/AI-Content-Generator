@@ -32,8 +32,6 @@ class Profile(models.Model):
     def __str__(self):
         return '{} {} {}'.format(self.user.first_name, self.user.last_name, self.user.email)
     
-    def get_absolute_url(self):
-        return reverse('contact-detail', kwargs={'slug': self.slug})
     
     def save(self, *args, **kwargs):
         if self.date_created is None:
@@ -45,12 +43,68 @@ class Profile(models.Model):
 
         self.slug = slugify('{}{}{}'.format(self.user.first_name, self.user.last_name, self.user.email))
         self.last_updated = timezone.localtime(timezone.now())
-        super(contact, self).save(*args, **kwargs)
+        super(Profile, self).save(*args, **kwargs)
 
 
 
 class Blog(models.Model):
-    title = models.CharField(null=True, max_length=300,)
+    title = models.CharField(max_length=300,)
     keywords = models.CharField(null=True, max_length=300,)
     wordCount = models.CharField(null=True, max_length=300,)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+        #utility variable
+
+    uniqueId = models.CharField(null=True, blank=True, max_length=100)
+    slug= models.SlugField(max_length=500, unique=True, blank=True, null=True)
+    date_created=models.DateTimeField(blank=True, null=True)
+    last_updated= models.DateTimeField(blank=True, null=True)
+
+
+    def __str__(self):
+        return '{} {}'.format(self.title, self.uniqueId)
+    
+    
+    def save(self, *args, **kwargs):
+        if self.date_created is None:
+            self.date_created = timezone.localtime(timezone.now())
+        if self.uniqueid is None:
+            self.uniqueid = str(uuid4()).split('-')[4]
+
+
+
+        self.slug = slugify('{}{}'.format(self.title, self.uniqueId))
+        self.last_updated = timezone.localtime(timezone.now())
+        super(Blog, self).save(*args, **kwargs)
+
+
+
+
+class BlogSection(models.Model):
+    title = models.CharField( max_length=300)
+    body = models.TextField(null=True, blank=True)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+
+        #utility variable
+
+    uniqueId = models.CharField(null=True, blank=True, max_length=100)
+    slug= models.SlugField(max_length=500, unique=True, blank=True, null=True)
+    date_created=models.DateTimeField(blank=True, null=True)
+    last_updated= models.DateTimeField(blank=True, null=True)
+
+
+    def __str__(self):
+        return '{} {}'.format(self.title, self.uniqueId)
+    
+    
+    def save(self, *args, **kwargs):
+        if self.date_created is None:
+            self.date_created = timezone.localtime(timezone.now())
+        if self.uniqueid is None:
+            self.uniqueid = str(uuid4()).split('-')[4]
+
+
+
+        self.slug = slugify('{}{}'.format(self.title, self.uniqueId))
+        self.last_updated = timezone.localtime(timezone.now())
+        super(BlogSection, self).save(*args, **kwargs)
