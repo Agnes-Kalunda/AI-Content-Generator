@@ -122,7 +122,13 @@ def blogTopic(request):
         keywords = request.POST['keywords']
 
         blogTopics = generateBlogTopicIdeas[blogIdea, keywords]
-        request.session['blogTopics'] = blogTopics
+        if len(blogTopics) >0:
+            request.session['blogTopics'] = blogTopics
+            return redirect ('blog-sections')
+        
+        else:
+            messages.error(request,'OOPs, we could not generate blog ideas for yoi, retry')
+            return redirect('blog-topic')
 
     return render(request, 'dashboard/blog-topic.html', context)
 
@@ -138,7 +144,7 @@ def blogSections(request):
          return redirect('blog-topic')
      
      context = {}
-     context['blogTopics'] = blogTopic
+     context['blogTopics'] = request.session['blogTopic']
 
      return render(request, 'dashboard/blog-sections.html' , context)
      

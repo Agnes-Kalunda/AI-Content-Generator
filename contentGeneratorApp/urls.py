@@ -15,7 +15,7 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('profile', views.profile, name="profile"),
     path('generate-blog-topic',views.blogTopic, name='blog-topic'),
-
+    path('generate-blog-sections ', views.blogSections, name='blog-sections'),
 ]   
 
 if settings.DEBUG:
