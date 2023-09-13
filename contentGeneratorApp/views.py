@@ -121,7 +121,7 @@ def blogTopic(request):
         blogIdea = request.POST['blogIdea']
         keywords = request.POST['keywords']
 
-        blogTopics = generateBlogTopicIdeas[blogIdea, keywords]
+        blogTopics = generateBlogTopicIdeas(blogIdea, keywords)
         if len(blogTopics) >0:
             request.session['blogTopics'] = blogTopics
             return redirect ('blog-sections')

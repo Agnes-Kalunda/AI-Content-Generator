@@ -19,10 +19,17 @@
                             {% csrf_token %}
 
                             <div class="mb-3">
-                                <label for="blogIdeas" class="form-label">Blog Ideas</label>
-                                <input type="text" class="form-control" name="blogIdeas" placeholder="Enter the blog ideas" required/>
+                                <label for="blogIdea" class="form-label">Blog Ideas</label>
+                                <input type="text" class="form-control" name="blogIdea" placeholder="Enter the blog ideas" required/>
 
                             </div>
+
+                            <div class="mb-3">
+                                <label for="keywords" class="form-label">Keywords</label>
+                                <input type="text" class="form-control" name="keywords" placeholder="Enter the blog ideas"/>
+
+                            </div>
+
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Generate Now</button>
 
