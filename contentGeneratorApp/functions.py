@@ -4,9 +4,11 @@ from django.conf import settings
 
 openai.api_key = settings.OPENAI_API_KEYS
 
-blog_topics = []
+
 
 def generateBlogTopicIdeas(topic, keywords):
+    blog_topics = []
+
     response = openai.Completion.create(
         engine="text-davinci-003",
         prompt='Generate blog topic ideeas on the following topic: {}\nKeywords: {} \n*'.format(topic, keywords),
@@ -17,7 +19,26 @@ def generateBlogTopicIdeas(topic, keywords):
         frequency_penalty=0,
         presence_penalty=0)
     
-    return response.choices[0].text
+    if 'choices' in response:
+        if len(response['choices'])>0:
+            res = response['choices'][0]['text']
+
+        else:
+            return []
+        
+    else:
+        return []
+    
+    a_list = res.split('*')
+    if len(a_list) > 0:
+        for blog in a_list:
+            blog_topics.append(blog)
+
+    else:
+        return[]
+    
+    return blog_topics
+
 
 
 
@@ -32,9 +53,15 @@ def generateBlogSectionHeadings(topic, keywords):
         frequency_penalty=0,
         presence_penalty=0)
     
-    return response.choices[0].text
+    if 'choices' in response:
+        if len(response['choices'])>0:
+            res = response['choices'][0]['text']
 
-
+        else:
+            res = None
+        
+    else:
+        res =None
 
 
 # res= generateBlogTopicIdeas(topic, keywords).replace('\n', '')

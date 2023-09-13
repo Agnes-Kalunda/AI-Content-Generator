@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required , user_passes_test 
 from .forms import *
 from .models import *
+from .functions import *
 
 
 # Create your views here.
@@ -110,3 +111,36 @@ def profile(request):
 
    
     return render (request, 'dashboard/profile.html', context)
+
+
+
+def blogTopic(request):
+    context = {}
+
+    if request.method == "POST":
+        blogIdea = request.POST['blogIdea']
+        keywords = request.POST['keywords']
+
+        blogTopics = generateBlogTopicIdeas[blogIdea, keywords]
+        request.session['blogTopics'] = blogTopics
+
+    return render(request, 'dashboard/blog-topic.html', context)
+
+
+
+
+def blogSections(request):
+     
+     if 'blogTopics' in request.sessions:
+         pass
+     else:
+         messages.error(request, "start by creating blog ideas")
+         return redirect('blog-topic')
+     
+     context = {}
+     context['blogTopics'] = blogTopic
+
+     return render(request, 'dashboard/blog-sections.html' , context)
+     
+
+     
