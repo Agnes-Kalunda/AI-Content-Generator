@@ -158,3 +158,14 @@ def blogSections(request):
      
 
      
+
+
+def saveBlogTopic(request, blogTopic):
+
+    blog = Blog.objects.create(
+    title = blogTopic,
+    topic = request.POST['blogIdea'], 
+    keywords = request.POST['keywords'], 
+    audience = request.POST['audience'], 
+    profile = request.user.profile),
+    

@@ -16,7 +16,7 @@ urlpatterns = [
     path('profile', views.profile, name="profile"),
     path('generate-blog-topic',views.blogTopic, name='blog-topic'),
     path('generate-blog-sections ', views.blogSections, name='blog-sections'),
-    path('save-blog-topic', views.saveBlogTopic, name="save-blog-topic"),
+    path('save-blog-topic/<str:blogTopic>', views.saveBlogTopic, name="save-blog-topic"),
     path('use-blog-topic', views.useBlogTopic, name="use-blog-topic"),
 ]   
 
