@@ -137,14 +137,14 @@ def blogTopic(request):
 
 def blogSections(request):
      
-     if 'blogTopics' in request.sessions:
+     if 'blogTopics' in request.session:
          pass
      else:
          messages.error(request, "start by creating blog ideas")
          return redirect('blog-topic')
      
      context = {}
-     context['blogTopics'] = request.session['blogTopic']
+     context['blogTopics'] = request.session['blogTopics']
 
      return render(request, 'dashboard/blog-sections.html' , context)
      

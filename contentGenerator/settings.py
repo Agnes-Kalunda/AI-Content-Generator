@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from django.contrib import messages 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -132,7 +133,8 @@ USE_TZ = True
 
 # LOGIN_REDIRECT_URL = "dashboard"
 LOGIN_URL ="login"
-OPENAI_API_KEYS='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'
+
+
 
 DJANGORESIZED_DEFAULT_SIZE = [500, 500]
 DJANGORESIZED_DEFAULT_QUALITY= 75

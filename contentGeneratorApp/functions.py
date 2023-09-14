@@ -1,8 +1,9 @@
 import os
 import openai
 from django.conf import settings
+from decouple import config
 
-openai.api_key = settings.OPENAI_API_KEYS
+openai.api_key = config('OPENAI_API_KEYS')
 
 
 
@@ -29,15 +30,14 @@ def generateBlogTopicIdeas(topic, keywords):
     else:
         return []
     
-    a_list = res.split('*')
-    if len(a_list) > 0:
-        for blog in a_list:
-            blog_topics.append(blog)
+    # Split the response into lines and add them to the blog_topics list
+    lines = res.split('\n')
+    for line in lines:
+        if line.strip():  # Skip empty lines
+            blog_topics.append(line)
 
-    else:
-        return[]
-    
     return blog_topics
+
 
 
 
@@ -54,15 +54,22 @@ def generateBlogSectionHeadings(topic, keywords):
         presence_penalty=0)
     
     if 'choices' in response:
-        if len(response['choices'])>0:
+        if len(response['choices']) > 0:
             res = response['choices'][0]['text']
-
         else:
             res = None
-        
-    else:
-        res =None
 
+    else:
+        res = None
+
+    # Split the response into lines and add them to the section_headings list
+    section_headings = []
+    lines = res.split('\n')
+    for line in lines:
+        if line.strip():  # Skip empty lines
+            section_headings.append(line)
+
+    return section_headings
 
 # res= generateBlogTopicIdeas(topic, keywords).replace('\n', '')
 # b_list = res.split('*')

@@ -36,8 +36,8 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         if self.date_created is None:
             self.date_created = timezone.localtime(timezone.now())
-        if self.uniqueid is None:
-            self.uniqueid = str(uuid4()).split('-')[4]
+        if self.uniqueId is None:
+            self.uniqueId = str(uuid4()).split('-')[4]
 
 
 
@@ -68,8 +68,8 @@ class Blog(models.Model):
     def save(self, *args, **kwargs):
         if self.date_created is None:
             self.date_created = timezone.localtime(timezone.now())
-        if self.uniqueid is None:
-            self.uniqueid = str(uuid4()).split('-')[4]
+        if self.uniqueId is None:
+            self.uniqueId = str(uuid4()).split('-')[4]
 
 
 
@@ -100,8 +100,8 @@ class BlogSection(models.Model):
     def save(self, *args, **kwargs):
         if self.date_created is None:
             self.date_created = timezone.localtime(timezone.now())
-        if self.uniqueid is None:
-            self.uniqueid = str(uuid4()).split('-')[4]
+        if self.uniqueId is None:
+            self.uniqueId = str(uuid4()).split('-')[4]
 
 
 

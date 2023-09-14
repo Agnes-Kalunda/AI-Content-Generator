@@ -10,9 +10,9 @@
         <div class="col-lg-10">
             <div class="row">
                 <div class="col-lg-6">
-                    <h2>We have generated these possible results for you {{ user.first_name }} :)</h2>
+                    <h2 class="mb-3">We have generated these possible results for you {{ user.first_name }} :)</h2>
                     
-                    {% for blog in blogTopic %}
+                    {% for blog in blogTopics %}
                     <p>{{blog}}</p>
                     <br>
                     {% endfor %}
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-lg-6">
                     
-                     
+                  <img class="img-fluid" src="./static/authorization/img/avatars/blog.png" alt class="" />
                 </div>
 
             </div>
