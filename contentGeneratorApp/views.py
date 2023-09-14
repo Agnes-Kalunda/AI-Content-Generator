@@ -119,9 +119,17 @@ def blogTopic(request):
 
     if request.method == "POST":
         blogIdea = request.POST['blogIdea']
-        keywords = request.POST['keywords']
+        request.session['blogIdea']=blogIdea
 
-        blogTopics = generateBlogTopicIdeas(blogIdea, keywords)
+
+        keywords = request.POST['keywords']
+        request.session['keywords']=keywords
+
+
+        audience= request.POST['audience']
+        request.session['audience']=audience
+
+        blogTopics = generateBlogTopicIdeas(blogIdea, audience, keywords)
         if len(blogTopics) >0:
             request.session['blogTopics'] = blogTopics
             return redirect ('blog-sections')

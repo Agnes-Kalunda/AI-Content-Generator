@@ -9,16 +9,33 @@
         <div class="col-lg-1"></div>
         <div class="col-lg-10">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <h2 class="mb-3">We have generated these possible results for you {{ user.first_name }} :)</h2>
                     
-                    {% for blog in blogTopics %}
-                    <p>{{blog}}</p>
-                    <br>
-                    {% endfor %}
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Blog Topic</th>
+                          <th>Save Topic</th>
+                          <th>Use Topic</th>
+                            </tr>
+                      </thead>
+                      <tbody>
+                        {% for blog in blogTopics %}
+                        <tr>
+                          <td>{{blog}}</td>
+                          <td><button class="btn btn-outline-primary">SAVE TOPIC</button></td>
+                          <td><button class="btn btn-primary">USE TOPIC</button></td>
+
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                      
+                    </table>
+                   
 
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     
                   <img class="img-fluid" src="./static/authorization/img/avatars/blog.png" alt class="" />
                 </div>

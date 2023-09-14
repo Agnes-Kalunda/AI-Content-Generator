@@ -7,12 +7,12 @@ openai.api_key = config('OPENAI_API_KEYS')
 
 
 
-def generateBlogTopicIdeas(topic, keywords):
+def generateBlogTopicIdeas(topic, audience, keywords):
     blog_topics = []
 
     response = openai.Completion.create(
         engine="text-davinci-003",
-        prompt='Generate blog topic ideeas on the following topic: {}\nKeywords: {} \n*'.format(topic, keywords),
+        prompt='Generate blog topic ideas on the following topic: {}\nAudience: {}\nKeywords: {} \n*'.format(topic, audience, keywords),
         temperature=0.7,
         max_tokens=250,
         top_p=1,
