@@ -12,7 +12,7 @@ def generateBlogTopicIdeas(topic, audience, keywords):
 
     response = openai.Completion.create(
         engine="text-davinci-003",
-        prompt='Generate blog topic ideas on the following topic: {}\nAudience: {}\nKeywords: {} \n*'.format(topic, audience, keywords),
+        prompt='Generate 5 blog topic ideas on the following topic: {}\nAudience: {}\nKeywords: {} \n*'.format(topic, audience, keywords),
         temperature=0.7,
         max_tokens=250,
         top_p=1,
