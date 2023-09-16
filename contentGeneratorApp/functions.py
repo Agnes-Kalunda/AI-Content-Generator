@@ -42,10 +42,12 @@ def generateBlogTopicIdeas(topic, audience, keywords):
 
 
 
-def generateBlogSectionHeadings(topic, keywords):
+def generateBlogSectionTitles(topic, audience, keywords):
+    blog_sections = []
+
     response = openai.Completion.create(
         engine="text-davinci-003",
-        prompt='Generate blog section headings and section titles, based on the following blog section topics.\nTopic: {}\nKeywords: {}\n*'.format(topic, keywords),
+        prompt='Generate 10 blog section titles for the provided blog topic: {}\nAudience: {}\nKeywords: {} \n*'.format(topic, audience, keywords),
         temperature=0.7,
         max_tokens=250,
         top_p=1,
@@ -54,26 +56,24 @@ def generateBlogSectionHeadings(topic, keywords):
         presence_penalty=0)
     
     if 'choices' in response:
-        if len(response['choices']) > 0:
+        if len(response['choices'])>0:
             res = response['choices'][0]['text']
+
         else:
-            res = None
-
+            return []
+        
     else:
-        res = None
-
-    # Split the response into lines and add them to the section_headings list
-    section_headings = []
+        return []
+    
+    # Split the response into lines and add them to the blog_topics list
     lines = res.split('\n')
     for line in lines:
         if line.strip():  # Skip empty lines
-            section_headings.append(line)
+            blog_sections.append(line)
 
-    return section_headings
+    return blog_sections
 
-# res= generateBlogTopicIdeas(topic, keywords).replace('\n', '')
-# b_list = res.split('*')
-# for blog in b_list:
-#     blog_topics.append(blog)
-#     print('\n')
-#     print(blog)
+
+
+
+

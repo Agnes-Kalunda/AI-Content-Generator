@@ -182,5 +182,19 @@ def saveBlogTopic(request, blogTopic):
 
 
 def useBlogTopic( request, blogTopic):
-    return 'Anything'
+    if "blogIdea" in request.session and "keywords" in request.session and "audience" in request.session :
+        blogSections=generateBlogSectionTitles(blogTopic, request.session['audience'], request.session['keywords'])
+    
+    else:
+        return redirect('blog-topic')
+    
+    if len(blogSections)>0:
+        request.session['blogSections'] = blogSections
+        return redirect('select-blog-sections')
+    
+    else:
+        messages.error(request, "OOpsie doosie, we could not generate any blog fo you. PLease try again")
+        return redirect('blog-topic')
+    
+    return redirect(request, 'dashboard/select-blog-sections', context)
     
