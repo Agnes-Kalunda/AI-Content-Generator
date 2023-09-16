@@ -9,13 +9,15 @@
         <div class="col-lg-1"></div>
         <div class="col-lg-10">
 
+            <h2 class="mb-3"> 😀 Your blog is ready 😀</h2>
+
            <h2 class="mb-3">{{blog.title}}</h2>
-           <h5 ><span class="badge bg-primary">{{blog.keywords}}</span></h5>
+           <h5 >Keywords: <span class="badge bg-primary">{{blog.keywords}}</span></h5>
             
            {% for section in blogSections %}
            <div class="mt-3">
             <h3>{{section.title}}</h3>
-            {{section.body}}
+            {{section.body|safe }}
            </div>
            {% endfor %}
 
