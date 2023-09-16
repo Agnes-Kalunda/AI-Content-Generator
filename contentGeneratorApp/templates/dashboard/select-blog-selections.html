@@ -13,9 +13,9 @@
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-lg-8">
-                        <h2 class="mb-3">We have generated these possible results for you {{ user.first_name }} :)</h2>
-                        
-                        <table class="table table-hover">
+                        <h2 class="mb-3">Select the blog sections you'd like to include in your blog</h2>
+                        <p>These blog topics will be used to generate a full blog </p>
+                        <table class="table table-hover mt-3">
                             <thead>
                                 <tr>
                                     <th>Select</th>
@@ -27,7 +27,11 @@
                                 {% for section in blogSection %}
                                 <tr>
                                     <td>
-                                        <input class="form-control" type="checkbox" name="{{section}}"  value="">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-control" type="checkbox" name="{{section}}">
+
+                                        </div>
+                                        
                                     </td>
                                     <td>
                                         {{section}}
@@ -42,8 +46,11 @@
                     <div class="col-lg-4">
                         
                       <img class="img-fluid" src="./static/authorization/img/avatars/blog.png" alt class="" />
-                    <br>
-                    <button type="submit" class="btn btn-primary">Generate full blog</button>
+                    
+                    <div class="mt-5">
+                        <button type="submit" class="btn btn-primary btn-block">Generate full blog</button>
+
+                    </div>
                     
                     </div>
     

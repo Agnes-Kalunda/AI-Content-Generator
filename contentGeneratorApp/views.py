@@ -201,7 +201,9 @@ def useBlogTopic( request, blogTopic):
         return redirect('blog-topic')
     
     if len(blogSections)>0:
+
         request.session['blogSections'] = blogSections
+
         context['blogSections'] = blogSections
 
     else:
@@ -209,7 +211,35 @@ def useBlogTopic( request, blogTopic):
         return redirect('blog-topic')
     
     if request.method == 'POST':
-        pass 
+        for val in request.POST:
+            if not 'csrfmiddlewaretoken' in val:
+                section = generateBlogSectionDetails(blogTopic, val, request.session['audience'], request.session['keywords'])
+
+                blogSec= BlogSection.objects.create(
+                title = val,
+                body =section,
+                blog=blog)
+                blogSec.save()
+                
+            return redirect('view-generated-blog', slug=blog.slug)
+                
+    return render(request, 'dashboard/select-blog-sections', context)
+
+
+
+
+def viewGeneratedBlog(request, slug):
+    try:
+        blog = Blog.objects.get(slug=slug)
+    except:
+        messages.error(request, 'something went wrong')
+        return redirect('blog-topic')
     
-    return redirect(request, 'dashboard/select-blog-sections', context)
+    blogSections = BlogSection.objects.filter(blog=blog)
+
+    context = {}
+    context["blog"]  = blog
+    context['blogSections'] = blogSections
+
+    return render (request, 'dashboard/view-generated-blog.html', context)
     

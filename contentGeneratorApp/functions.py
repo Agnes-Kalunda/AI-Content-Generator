@@ -75,5 +75,31 @@ def generateBlogSectionTitles(topic, audience, keywords):
 
 
 
+def generateBlogSectionDetails(blogTopic, sectionTopic, audience, keywords):
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt='Generate detailed blog section write up for the following blog section heading , using the blog title, audience and keywords provided.\nBlog Title: {}\nBlog Section Heading: {}\nAudience: {}\nKeywords: {}\n\n'.format(blogTopic, sectionTopic, audience, keywords),
+        temperature=0.7,
+        max_tokens=500,
+        top_p=1,
+        best_of=1,
+        frequency_penalty=0,
+        presence_penalty=0)
+    
+    if 'choices' in response:
+        if len(response['choices'])>0:
+            res = response['choices'][0]['text']
+            cleanedRes = res.replace('.\n', '<br>')
+            return cleanedRes
+
+        else:
+            return ''
+        
+    else:
+        return ''
+
+
+
+
 
 
