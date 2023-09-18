@@ -181,22 +181,21 @@ def saveBlogTopic(request, blogTopic):
 
 
 
-def useBlogTopic( request, blogTopic):
+def useBlogTopic(request, blogTopic):
     context = {}
 
-    if "blogIdea" in request.session and "keywords" in request.session and "audience" in request.session :
+    if "blogIdea" in request.session and "keywords" in request.session and "audience" in request.session:
 
         blog = Blog.objects.create(
         title=blogTopic,
         blogIdea=request.session['blogIdea'],
         keywords= request.session['keywords'],
-        audience= request.audience['audience'],
+        audience= request.session['audience'],
         profile= request.user.profile)
         blog.save()
         
         blogSections=generateBlogSectionTitles(blogTopic, request.session['audience'], request.session['keywords'])
         
-
     else:
         return redirect('blog-topic')
     
