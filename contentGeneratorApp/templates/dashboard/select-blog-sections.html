@@ -1,7 +1,7 @@
 {% extends 'layout/dashboard.html' %}
 {% load static %}
 
-{% block body%}
+{% block body %}
 <div class="container-fluid flex-grow-1 container-p-y">
     <!-- Layout Demo -->
     <div class="layout-demo-wrapper">
@@ -24,11 +24,11 @@
                             </thead>
 
                             <tbody>
-                                {% for section in blogSection %}
+                                {% for section in blogSections %}
                                 <tr>
                                     <td>
                                         <div class="form-check form-switch mb-2">
-                                            <input class="form-control" type="checkbox" name="{{section}}">
+                                            <input class="form-check-input" type="checkbox" name="{{section}}">
 
                                         </div>
                                         

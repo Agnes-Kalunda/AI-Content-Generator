@@ -89,7 +89,7 @@ def profile(request):
 
 
     if request.method == 'GET':
-        form = ProfileForm(instance=request.user.profile)
+        form = ProfileForm(instance=request.user.profile, user=request.user)
         image_form = ProfileImageForm(instance=request.user.profile)
         context['form']= form
         context['image_form']=image_form
@@ -97,7 +97,7 @@ def profile(request):
     
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=request.user.profile)
+        form = ProfileForm(request.POST, instance=request.user.profile, user=request.user)
         image_form= ProfileImageForm(request.POST, request.FILES, instance=request.user.profile)
        
         if form.is_valid():
@@ -164,15 +164,15 @@ def saveBlogTopic(request, blogTopic):
     if "blogIdea" in request.session and "keywords" in request.session and "audience" in request.session and 'blogTopics' in request.session:
         blog = Blog.objects.create(
         title = blogTopic,
-        topic = request.POST['blogIdeas'], 
-        keywords = request.POST['keywords'], 
-        audience = request.POST['audience'], 
+        blogIdea = request.session['blogIdea'], 
+        keywords = request.session['keywords'], 
+        audience = request.session['audience'], 
         profile = request.user.profile),
         blog.save()
 
-        blogTopic = request.session['blogTopics']
-        blogTopic.remove(blogTopic)
-        request.session['blogTopic'] = blogTopic
+        blogTopics = request.session['blogTopics']
+        blogTopics.remove(blogTopic)
+        request.session['blogTopics'] = blogTopics
 
         return redirect('blog-sections')
 
@@ -180,7 +180,7 @@ def saveBlogTopic(request, blogTopic):
         return redirect('blog-topic')
 
 
-
+@login_required
 def useBlogTopic(request, blogTopic):
     context = {}
 
@@ -222,7 +222,7 @@ def useBlogTopic(request, blogTopic):
                 
             return redirect('view-generated-blog', slug=blog.slug)
                 
-    return render(request, 'dashboard/select-blog-sections', context)
+    return render(request, 'dashboard/select-blog-sections.html', context)
 
 
 
