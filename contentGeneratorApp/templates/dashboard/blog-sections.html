@@ -10,13 +10,17 @@
         <div class="col-lg-10">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="mb-3">We have generated these possible results for you {{ user.first_name }} :)</h2>
+                  <h2 class="mb-3" style="color: #2F4F4F; font-size: 24px;">
+                    <span style="text-decoration: underline double;">Below are possible results for you :)</span>
+                </h2>
+                
+
                     
                     <table class="table table-hover">
                       <thead>
                         <tr>
                           <th>Blog Topic</th>
-                          <th>Save Topic</th>
+                          <!-- <th>Save Topic</th> -->
                           <th>Use Topic</th>
                             </tr>
                       </thead>
@@ -24,8 +28,9 @@
                         {% for blog in blogTopics %}
                         <tr>
                           <td>{{blog}}</td>
-                          <td><a href="{% url 'save-blog-topic' blog %}"> <button class="btn btn-outline-primary">SAVE TOPIC</button></td>
-                          <td><a href="{% url 'use-blog-topic' blog %}"><button class="btn btn-primary">USE TOPIC</button></td>
+                          <!-- <td><a href="{% url 'save-blog-topic' blog %}"> <button class="btn btn-outline-primary">SAVE TOPIC</button></td> -->
+                            <td><a href="{% url 'use-blog-topic' blog %}"><button class="btn btn-primary" style="background-color: #000080;">USE TOPIC</button></a></td>
+
 
                         </tr>
                         {% endfor %}
