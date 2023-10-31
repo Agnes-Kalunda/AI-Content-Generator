@@ -222,7 +222,7 @@ def useBlogTopic(request, blogTopic):
                 
             return redirect('view-generated-blog', slug=blog.slug)
                 
-    return render(request, 'dashboard/select-blog-sections.html', context)
+    return render(request, 'blog/select-blog-sections.html', context)
 
 
 
