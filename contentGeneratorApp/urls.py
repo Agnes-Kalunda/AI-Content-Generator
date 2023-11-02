@@ -18,7 +18,8 @@ urlpatterns = [
     path('generate-blog-sections', views.blogSections, name='blog-sections'),
     path('save-blog-topic/<str:blogTopic>/', views.saveBlogTopic, name='save-blog-topic'),
     path('use-blog-topic/<str:blogTopic>/', views.useBlogTopic, name='use-blog-topic'),
-    path('view-generated-blog/<slug:slug>/', views.viewGeneratedBlog, name='view-generated-blog'),
+    # path('view-generated-blog/<slug:slug>/', views.viewGeneratedBlog, name='view-generated-blog'),
+    path('generated-blog', views.generatedBlog, name='generated-blog')
 ]   
 
 if settings.DEBUG:

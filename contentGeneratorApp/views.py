@@ -227,18 +227,55 @@ def useBlogTopic(request, blogTopic):
 
 
 
-def viewGeneratedBlog(request, slug):
-    try:
-        blog = Blog.objects.get(slug=slug)
-    except:
-        messages.error(request, 'something went wrong')
-        return redirect('blog-topic')
+# def viewGeneratedBlog(request, slug):
+#     try:
+#         blog = Blog.objects.get(slug=slug)
+#     except:
+#         messages.error(request, 'something went wrong')
+#         return redirect('blog-topic')
     
-    blogSections = BlogSection.objects.filter(blog=blog)
+#     blogSections = BlogSection.objects.filter(blog=blog)
 
+#     context = {}
+#     context["blog"]  = blog
+#     context['blogSections'] = blogSections
+
+#     return render (request, 'dashboard/view-generated-blog.html', context)
+
+
+
+
+def generatedBlog(request):
     context = {}
-    context["blog"]  = blog
-    context['blogSections'] = blogSections
 
-    return render (request, 'dashboard/view-generated-blog.html', context)
+    # Retrieve the generated blog topics from the user's session
+    blogTopics = request.session.get('blogTopics', [])
+
+    if not blogTopics:
+        # Handle the case where there are no generated blog topics
+        context['error_message'] = "No blog topics have been generated. Please generate blog topics first."
+    else:
+        # Generate full blog content based on the topics
+        blogContent = []
+
+        # Define a function to generate content using GPT-3
+        def generate_blog_content(topic):
+            prompt = f"Write a blog post about {topic}"
+            response = openai.Completion.create(
+                engine="davinci",
+                prompt=prompt,
+                max_tokens=500,  # Adjust the length as needed
+                temperature=0.7,  # Adjust creativity (higher values make it more creative)
+                stop=None  # You can add custom stop words to end the text
+            )
+            return response.choices[0].text
+
+        for topic in blogTopics:
+            content = generate_blog_content(topic)
+            blogContent.append(content)
+
+        context['blogContent'] = blogContent
+
+    return render(request, 'dashboard/generated-blog.html', context)
+
     

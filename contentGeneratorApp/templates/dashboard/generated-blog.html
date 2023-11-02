@@ -1,0 +1,25 @@
+{% extends 'layout/dashboard.html' %}
+{% load static %}
+
+
+{% block body %}
+<h1>Generated Blog Content</h1>
+
+{% if error_message %}
+<p>{{ error_message }}</p>
+{% else %}
+<div class="blog-container">
+    {% for content in blogContent %}
+    <div class="blog-post">
+        {{ content|safe }}  <!-- Using |safe to render HTML content -->
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+
+
+
+
+{% endblock %}
