@@ -113,7 +113,7 @@ def profile(request):
     return render (request, 'dashboard/profile.html', context)
 
 
-
+@login_required
 def blogTopic(request):
     context = {}
 
@@ -130,7 +130,7 @@ def blogTopic(request):
         request.session['audience']=audience
 
         blogTopics = generateBlogTopicIdeas(blogIdea, audience, keywords)
-        if len(blogTopics) >0:
+        if blogTopics:
             request.session['blogTopics'] = blogTopics
             return redirect ('blog-sections')
         
@@ -142,7 +142,7 @@ def blogTopic(request):
 
 
 
-
+@login_required
 def blogSections(request):
      
      if 'blogTopics' in request.session:
@@ -159,7 +159,7 @@ def blogSections(request):
 
      
 
-
+@login_required
 def saveBlogTopic(request, blogTopic):
     if "blogIdea" in request.session and "keywords" in request.session and "audience" in request.session and 'blogTopics' in request.session:
         blog = Blog.objects.create(
@@ -243,8 +243,7 @@ def useBlogTopic(request, blogTopic):
 #     return render (request, 'dashboard/view-generated-blog.html', context)
 
 
-
-
+@login_required
 def generatedBlog(request):
     context = {}
 
@@ -277,5 +276,3 @@ def generatedBlog(request):
         context['blogContent'] = blogContent
 
     return render(request, 'dashboard/generated-blog.html', context)
-
-    
