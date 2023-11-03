@@ -50,9 +50,10 @@ def login(request):
 
     return render(request, 'authorization/login.html', {})
 
+
+
 @anonymous_required
 def register(request):
-    user = None
     if request.method == 'POST':
         email = request.POST['email'].replace(' ', '').lower()
         password1 = request.POST['password1']
@@ -60,16 +61,19 @@ def register(request):
 
         if not password1 == password2:
             messages.error(request, 'Passwords do not match')
+        else:
+            # Check if a user with the same email already exists
+            if User.objects.filter(email=email).exists():
+                messages.error(request, f'A user with the email address {email} already exists. Please use a different email.')
+            else:
+                # Create a new user if everything is valid
+                user = User.objects.create_user(email=email, username=email, password=password1)
+                user.save()
 
-        if User.objects.filter(email=email).exists():
-            messages.error(request, "A user with the email address: {} already exists, please use a different email".format(email))
+                # Log in the new user
+                auth.login(request, user)
+                return redirect('login')
 
-        user = User.objects.create_user(email=email, username=email, password=password1)
-        user.save()
-
-        user = user  # Assign new user to user
-        auth.login(request, user)
-        return redirect('login')
     return render(request, 'authorization/register.html', {})
 
 @login_required
