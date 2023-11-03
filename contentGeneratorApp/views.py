@@ -72,7 +72,7 @@ def register(request):
 
                 # Log in the new user
                 auth.login(request, user)
-                return redirect('login')
+                return redirect('login')  # Redirect to the login page
 
     return render(request, 'authorization/register.html', {})
 
