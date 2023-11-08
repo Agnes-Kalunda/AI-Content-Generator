@@ -84,7 +84,7 @@ def logout(request):
 @login_required
 def dashboard(request):
     context = {}
-    return render (request,"dashboard/blog-topic.html",context)
+    return render (request,"dashboard/home.html",context)
 
 
 @login_required
